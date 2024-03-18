@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 // import './App.css'
 import { InputBox, CustomButton } from './components';
 import useCurrencyInfo from './hooks/useCurrencyInfo';
+import moment from 'moment/moment';
 
 const APP_TITLE = 'Currency Convertor App'
 const APP_BACKGROUND_IMAGE = 'https://images.pexels.com/photos/259200/pexels-photo-259200.jpeg?auto=compress&cs=tinysrgb&w=800'
@@ -18,7 +19,10 @@ function App() {
   const [conversionData, setConversionData] = useState({});
 
   useEffect(()=>{
-    const currencyDataUrl = `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@2024.3.18/v1/currencies/${fromVal}.json`
+    const date = new Date();
+    const currentDate = moment(date).format("YYYY.M.D")
+    console.log(currentDate)
+    const currencyDataUrl = `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${currentDate}/v1/currencies/${fromVal}.json`
     fetch(currencyDataUrl)
       .then((res)=>(res.json()))
       .then(data=>{
